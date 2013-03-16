@@ -29,6 +29,9 @@ class BPExtFriendRequestHelper{
         
         add_action('bp_friend_requests_item',array($this,'show_message'));
         
+         //load text domain
+        add_action ( 'bp_loaded', array(&$this,'load_textdomain'), 2 );
+        
     }
     
     public static function get_instance(){
@@ -42,6 +45,20 @@ class BPExtFriendRequestHelper{
      * Load plugin textdomain for translation
      */
     function load_textdomain(){
+         $locale = apply_filters( 'bp-extended-friendship-request', get_locale() );
+        
+      
+	// if load .mo file
+	if ( !empty( $locale ) ) {
+		$mofile_default = sprintf( '%slanguages/%s.mo', plugin_dir_path(__FILE__), $locale );
+              
+		$mofile = apply_filters( 'bp-ext_fr_load_textdomain_mofile', $mofile_default );
+		
+                if (is_readable( $mofile ) ) {
+                    // make sure file exists, and load it
+			load_textdomain( 'bp-ext-friends-request', $mofile );
+		}
+	}
        
     }
     /**
