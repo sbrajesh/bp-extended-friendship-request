@@ -30,7 +30,7 @@ class BPExtFriendRequestHelper{
         add_action('bp_friend_requests_item',array($this,'show_message'));
         
          //load text domain
-        add_action ( 'bp_loaded', array(&$this,'load_textdomain'), 2 );
+        add_action ( 'bp_loaded', array($this,'load_textdomain'), 2 );
         
     }
     
@@ -45,7 +45,7 @@ class BPExtFriendRequestHelper{
      * Load plugin textdomain for translation
      */
     function load_textdomain(){
-         $locale = apply_filters( 'bp-extended-friendship-request', get_locale() );
+         $locale = apply_filters( 'bp-extended-friendship-request_get_locale', get_locale() );
         
       
 	// if load .mo file
