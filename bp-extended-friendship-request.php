@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: BuddyPress Extended Friendship Request 
- * Version: 1.0.1
+ * Version: 1.0.2
  * Plugin URI: http://buddydev.com/plugins/bp-extended-friendship-request/
  * Author: Brajesh Singh
  * Contributor: Anu Sharma
@@ -83,7 +83,30 @@ class BPExtFriendRequestHelper{
         $friendship_id=bp_get_friend_friendship_id();
         $user_id=get_current_user_id();
         $message=bp_ext_friend_request_get_message($user_id,$friendship_id);
-        echo wpautop($message);
+        
+        //and we need to filter the output for malicious content
+        global $allowedtags;
+        $message_allowed_tags = $allowedtags;
+        $message_allowed_tags['span'] = array();
+        $message_allowed_tags['span']['class'] = array();
+        $message_allowed_tags['div'] = array();
+        $message_allowed_tags['div']['class'] = array();
+        $message_allowed_tags['div']['id'] = array();
+        $message_allowed_tags['a']['class'] = array();
+        $message_allowed_tags['img'] = array();
+        $message_allowed_tags['br'] = array();
+        $message_allowed_tags['p'] = array();
+        $message_allowed_tags['img']['src'] = array();
+        $message_allowed_tags['img']['alt'] = array();
+        $message_allowed_tags['img']['class'] = array();
+        $message_allowed_tags['img']['width'] = array();
+        $message_allowed_tags['img']['height'] = array();
+        $message_allowed_tags['img']['class'] = array();
+        $message_allowed_tags['img']['id'] = array();
+        $message_allowed_tags['blockquote'] = array();
+        
+        $message_allowed_tags =  apply_filters('bp_ext_friends_message_allowed_tags',$message_allowed_tags);
+        echo wp_kses($message,$message_allowed_tags);
     }
     
     
