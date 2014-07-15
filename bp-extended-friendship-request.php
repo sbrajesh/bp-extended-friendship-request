@@ -184,9 +184,9 @@ class BPExtFriendShipActions{
         //clean on accepted
         add_action('friends_friendship_accepted',array($this,'clean_message'),10,3);
         //clean on rejected
-        add_action('friends_friendship_rejected',array($this,'delete_message_on_withdraw'));
+        add_action('friends_friendship_rejected',array($this,'delete_message_on_withdraw'), 10, 2);
         //clean on withdraw
-        add_action('friends_friendship_whithdrawn',array($this,'delete_message_on_withdraw'));
+        add_action('friends_friendship_whithdrawn',array($this,'delete_message_on_withdraw'), 10, 2);
        
          
     }
@@ -202,10 +202,10 @@ class BPExtFriendShipActions{
     function clean_message( $friendship_id, $initiator_user_id, $user_id ){
         bp_ext_friend_request_delete_message($user_id, $friendship_id);
     }
-    function delete_message_on_withdraw($info){
-        $friendship_id=$info[0];
-        $friendship=$info[1];
-        bp_ext_friend_request_delete_message($friendship->friend_user_id, $friendship_id);
+    function delete_message_on_withdraw( $friendship_id, $friendship ){
+       // $friendship_id=$info[0];
+        //$friendship=$info[1];
+        bp_ext_friend_request_delete_message( $friendship->friend_user_id, $friendship_id);
         
     }
     /**
