@@ -9,7 +9,7 @@
 jQuery(document).ready(function(){
     var jq=jQuery;
    
-        var popup=null;
+        var popup = null;
         
         //this is a fallback template which we never expect to use
         var template= '<div class="bpdev-popover top"><span class="bpdev-popover-close">x</span><div class="arrow"></div><div class="bpdev-popover-inner"><h3 class="bpdev-popover-title"></h3><div class="bpdev-popover-content"><textarea name="request_friend_message" cols="27" rows="5" class="request_friend_message"></textarea><p><a class="button request-friend-ext-button" type="submit" herf="#">Send Request</a></p></div></div></div>';
@@ -64,15 +64,15 @@ jQuery(document).ready(function(){
        }
        
        //close on clicking the close btn
-       jq('.bpdev-popover-close').live('click',function(){
+       jq(document).on('click','.bpdev-popover-close', function(){
            popup.hide(300,'easeOutQuad');
            popup.css({top:0});
          
-       })
+       });
        
        
        /* Add / Remove friendship buttons */
-	jq(".friendship-button-ext a").live('click', function() {
+	jq(document).on('click', '.friendship-button-ext a', function() {
                 init_popup();//reset any data we had earlier
                 popup.hide();//hide the popup
                 
@@ -131,7 +131,7 @@ jQuery(document).ready(function(){
     
      //bind the action to popup request button
      //this is where we send the actual request for friendship
-       jq(popup).find('a.button').live('click',function(){
+       jq(document).on('click', '.bpdev-popover a.button',function(){
           
          
 		jq(this).addClass('loading');
