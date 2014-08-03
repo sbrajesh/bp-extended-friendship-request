@@ -7,61 +7,100 @@
  */
 
 jQuery(document).ready(function(){
+    
     var jq=jQuery;
    
-        var popup = null;
+    var popup = null;
         
-        //this is a fallback template which we never expect to use
-        var template= '<div class="bpdev-popover top"><span class="bpdev-popover-close">x</span><div class="arrow"></div><div class="bpdev-popover-inner"><h3 class="bpdev-popover-title"></h3><div class="bpdev-popover-content"><textarea name="request_friend_message" cols="27" rows="5" class="request_friend_message"></textarea><p><a class="button request-friend-ext-button" type="submit" herf="#">Send Request</a></p></div></div></div>';
-        
+    //this is a fallback template which we never expect to use
+    var template= '<div class="bpdev-popover top"><span class="bpdev-popover-close">x</span><div class="arrow"></div><div class="bpdev-popover-inner"><h3 class="bpdev-popover-title"></h3><div class="bpdev-popover-content"><textarea name="request_friend_message" cols="27" rows="5" class="request_friend_message"></textarea><p><a class="button request-friend-ext-button" type="submit" herf="#">Send Request</a></p></div></div></div>';
+    //
+    //
+    //initialize    
        //let us check if the popup exists
-       if(jq('.bpdev-popover').get(0)){
-           popup=jq('.bpdev-popover');
-           template=popup.find('.bpdev-popover-content').html();
-       }else{
-            jq('body').append(template);
-            popup=jq('.bpdev-popover');
-       }
-       popup.hide();//by default, let us keep it hidden
-       
-       //sets the title of the popup
-       function set_title(title){
-           popup.find('.bpdev-popover-title').text(title);
-       }
-       //sets the content of the modal
-       function set_content(content){
-           popup.find('.bpdev-popover-content').html(content);
-       }
-       
-       //repositions the popup box
-       function set_position(left,top){
-           popup.animate({left:left,top:top},300,'easeOutQuad');
-       }
-       //just resets the state of the popup to the initial state
-       function init_popup(){
-           //reset the popup data
-           set_content(template);
-       }
-       
-       /**
-        * realigns popup box with element
-        */
-       function realign_with_element(e){
-            var left=0,top=0;
-            var offset=jq(e).offset();
-            //offset left of the button-half the width of the popu box+half the width of the button
-                               
-            left=offset.left-(jq(popup).width()/2)+jq(e).width()/2+'px';
-               
-            top=offset.top-(jq(popup).height()+20) +'px';
-                
-            popup.css('left',left);
-                    
-            popup.show();
-              //animate the popup box and make visible
-            set_position(left,top);
-             //save the element 
-       }
+    if( jq('.bpdev-popover').get(0) ){
+        
+        popup = jq('.bpdev-popover');
+        
+        template = popup.find('.bpdev-popover-content').html();
+        
+    }else{
+        
+         jq('body').append(template);
+         
+         popup=jq('.bpdev-popover');
+         
+    }
+    popup.hide();//by default, let us keep it hidden
+
+
+    // Some Utility Functions //
+    // 
+    //sets the title of the popup
+    function set_title(title){
+        
+        popup.find('.bpdev-popover-title').text(title);
+        
+    }
+    //sets the content of the modal
+    function set_content(content){
+        
+        popup.find('.bpdev-popover-content').html(content);
+        
+    }
+
+    //repositions the popup box
+    function set_position(left, top){
+        
+        popup.animate({left:left, top:top},300,'easeOutQuad');
+        
+    }
+    //just resets the state of the popup to the initial state
+    function init_popup(){
+        //reset the popup data
+        set_content(template);
+    }
+
+    /**
+     * realigns popup box with element
+     */
+    function realign_with_element(e){
+         var left = 0, top = 0;
+
+         var offset = jq(e).offset();
+         //offset left of the button-half the width of the popu box+half the width of the button
+
+         left = offset.left - ( jq(popup).width()/2 ) + jq(e).width()/2 + 10;//+'px';
+
+         top = offset.top-( jq(popup).height() + 20 ) +'px';
+
+        var right = 0;
+        right = left + jq(popup).width();
+
+        var win_width = jq(document).width();
+        
+        
+        if( win_width <= right ){
+            //we need to adjust our left coordinate
+            //how much?
+            left = left -( right - win_width + 20 );
+            
+            //make sure to add a class to popup to account for the resizing
+            popup.addClass('bpdev-popover-aligned-right')
+        }
+
+        if( left < 0 )
+            left = 0;
+
+        left = left+'px';
+
+         popup.css('left',left);
+
+         popup.show();
+           //animate the popup box and make visible
+         set_position(left,top);
+          //save the element 
+    }
        
        //close on clicking the close btn
        jq(document).on('click','.bpdev-popover-close', function(){
@@ -175,5 +214,8 @@ jQuery(document).ready(function(){
        //bind the event to send request button
        
   
+  jq(window).on('resize', function(){
+      console.log('resized');
+  })
  
 });//have a great day :)

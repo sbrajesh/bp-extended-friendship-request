@@ -13,6 +13,7 @@
   z-index: 1010;
   display: none;
   width: 236px;
+  max-width: 80%;
   padding: 1px;
   background-color: #ffffff;
   border: 1px solid #ccc;
@@ -148,4 +149,10 @@
     position: absolute;
     right: 10px;
     top: 5px;
+}
+
+.bpdev-popover.bpdev-popover-aligned-right div.arrow{
+    left: auto;
+    right: 0;
+    margin-right: 10px;
 }
