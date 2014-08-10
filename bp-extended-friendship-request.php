@@ -16,6 +16,8 @@ class BPExtFriendRequestHelper{
     
     private function __construct(){
         
+         add_action ( 'bp_loaded', array( $this, 'load_textdomain' ), 2 );
+         
         if( is_admin() || is_network_admin() )
             return;//we don't want anything in backend
         //load css
@@ -32,7 +34,7 @@ class BPExtFriendRequestHelper{
         add_action( 'bp_friend_requests_item', array( $this, 'show_message' ) );
         
          //load text domain
-        add_action ( 'bp_loaded', array( $this, 'load_textdomain' ), 2 );
+       
         
     }
     
