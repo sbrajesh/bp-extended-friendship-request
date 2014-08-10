@@ -15,6 +15,7 @@ class BPExtFriendRequestHelper{
     private static $instance;
     
     private function __construct(){
+        
         if( is_admin() || is_network_admin() )
             return;//we don't want anything in backend
         //load css
@@ -45,21 +46,22 @@ class BPExtFriendRequestHelper{
     /**
      * Load plugin textdomain for translation
      */
-    function load_textdomain(){
-         $locale = apply_filters( 'bp-extended-friendship-request_get_locale', get_locale() );
+    public function load_textdomain(){
         
-      
-	// if load .mo file
-	if ( !empty( $locale ) ) {
-		$mofile_default = sprintf( '%slanguages/%s.mo', plugin_dir_path( __FILE__ ), $locale );
+        $locale = apply_filters( 'bp-extended-friendship-request_get_locale', get_locale() );
               
-		$mofile = apply_filters( 'bp-ext_fr_load_textdomain_mofile', $mofile_default );
-		
-                if ( is_readable( $mofile ) ) {
-                    // make sure file exists, and load it
-			load_textdomain( 'bp-ext-friends-request', $mofile );
-		}
-	}
+        // if load .mo file
+        if ( !empty( $locale ) ) {
+            
+            $mofile_default = sprintf( '%slanguages/%s.mo', plugin_dir_path( __FILE__ ), $locale );
+
+            $mofile = apply_filters( 'bp-ext_fr_load_textdomain_mofile', $mofile_default );
+
+            if ( is_readable( $mofile ) ) {
+                        // make sure file exists, and load it
+                load_textdomain( 'bp-ext-friends-request', $mofile );
+            }
+        }
        
     }
     /**
@@ -122,7 +124,9 @@ class BPExtFriendRequestHelper{
         //do not load js if user is not logged in
         if( !is_user_logged_in() || is_admin() )
             return;
+        
        wp_enqueue_script( 'add-friend',  plugin_dir_url( __FILE__ ) . '_inc/js/bp-ext-friend.js', array( 'jquery' ) );
+       
     }
     
     //load css
@@ -382,4 +386,3 @@ function bp_ext_friend_request_get_message_key(){
     return 'friendship_request_messages';
     
 }
-?>
