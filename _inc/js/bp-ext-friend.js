@@ -112,110 +112,120 @@ jQuery(document).ready(function(){
        
        /* Add / Remove friendship buttons */
 	jq(document).on('click', '.friendship-button-ext a', function() {
-                init_popup();//reset any data we had earlier
-                popup.hide();//hide the popup
+                
+        init_popup();//reset any data we had earlier
+        
+        popup.hide();//hide the popup
                 
 		var fid = jq(this).attr('id');
 		fid = fid.split('-');
 		fid = fid[1];
 
 		var thelink = jq(this);
-                var action = thelink.attr('rel');
-                //if this is add friend action
-                //we will setup the popup box and show it
-                if(action == 'add'){
-                 //setup the modal box
-                   
-                    popup.find('a.button').attr('href',jq(this).attr('href'));//save the link
-                    realign_with_element(this);//realign popup
-                    popup.data('btn',jq(this).parent().attr('id'));//save the id of the parent elemtn            
-                    popup.data('fid',fid);   //save button id  
-                    return false;//prevent propagation
-                }
-                
-                //if we are here, It is most probably a cancel friend request or withdraw friend request
-                
-                jq(this).parent().addClass('loading');
+        var action = thelink.attr('rel');
+        //if this is add friend action
+        //we will setup the popup box and show it
+        if( action == 'add' ){
+         //setup the modal box
+
+            popup.find('a.button').attr( 'href', jq(this).attr('href') );//save the link
+            realign_with_element(this);//realign popup
+            popup.data('btn',jq(this).parent().attr('id'));//save the id of the parent elemtn            
+            popup.data('fid',fid);   //save button id  
+            return false;//prevent propagation
+        }
+
+        //if we are here, It is most probably a cancel friend request or withdraw friend request
+
+        jq(this).parent().addClass('loading');
 		
                 //this handles the cancel friendship request
 		var nonce = jq(this).attr('href');
+        
 		nonce = nonce.split('?_wpnonce=');
 		nonce = nonce[1].split('&');
 		nonce = nonce[0];
+        
 		jq.post( ajaxurl, {
 			action: 'ext_friend_remove_friend',
 			'cookie': encodeURIComponent(document.cookie),
 			'fid': fid,
 			'_wpnonce': nonce
 		},
-		function(response)
-		{
+		function(response){
 			
 			var parentdiv = thelink.parent();
 
-			 if ( action == 'remove' ) {
-				jq(parentdiv).fadeOut(200,
-					function() {
-						parentdiv.removeClass('remove_friend');
-						parentdiv.removeClass('loading');
-						parentdiv.addClass('add');
-						parentdiv.fadeIn(200).html(response);
-					}
-					);
-			}
+            if ( action == 'remove' ) {
+               jq(parentdiv).fadeOut(200,
+                   function() {
+                       parentdiv.removeClass('remove_friend');
+                       parentdiv.removeClass('loading');
+                       parentdiv.addClass('add');
+                       parentdiv.fadeIn(200).html(response);
+                   }
+                   );
+           }
 		});
 		return false;
 	} );
 
-    
-     //bind the action to popup request button
-     //this is where we send the actual request for friendship
-       jq(document).on('click', '.bpdev-popover a.button',function(){
-          
-         
-		jq(this).addClass('loading');
-                var link=jq(this);
-		var btn = jq(popup).data('btn');
-                var fid=jq(popup).data('fid');
-		
-		var nonce = jq(this).attr('href');
-		nonce = nonce.split('?_wpnonce=');
-		nonce = nonce[1].split('&');
-		nonce = nonce[0];
 
-		
+    //bind the action to popup request button
+    //this is where we send the actual request for friendship
+    jq(document).on('click', '.bpdev-popover a.button',function(){
 
-		jq.post( ajaxurl, {
-			action: 'ext_friend_add_friend',
+        jq(this).addClass('loading');
+        
+        var link = jq(this);
+   
+        var btn = jq(popup).data('btn');
+        var fid = jq(popup).data('fid');
+
+        var nonce = jq(this).attr('href');
+   
+        nonce = nonce.split('?_wpnonce=');
+        nonce = nonce[1].split('&');
+        nonce = nonce[0];
+
+
+
+        jq.post( ajaxurl, {
+            action: 'ext_friend_add_friend',
                         'friendship_request_message':popup.find('textarea').val(),
-			'cookie': encodeURIComponent(document.cookie),
-			'fid': fid,
-			'_wpnonce': nonce
-		},
-		function(response)
-		{
-			link.removeClass('loading');
-                        
-                        if(response.message!='undefined'){
-                            set_content(response.message);
-                            
-                            if(response.button!=undefined){
-                                jq('#'+btn).html(response.button);
-                                realign_with_element('#'+btn);//realign the popup
-                            }
-                        }
-			
+            'cookie': encodeURIComponent(document.cookie),
+            'fid': fid,
+            '_wpnonce': nonce
+            },
+   
+        function( response ){
+       
+            link.removeClass('loading');
 
-			
-		},'json');
-		return false;
-       });
+            if( response.message != 'undefined' ){
+                set_content( response.message );
+
+                if(response.button!=undefined){
+                    
+                    jq('#'+btn).html(response.button);
+                    realign_with_element('#'+btn);//realign the popup
+                    
+                }
+            }
+
+
+
+        },'json');
+        
+   return false;
+   
+  });
        
        //bind the event to send request button
        
-  
+  /*
   jq(window).on('resize', function(){
       console.log('resized');
   })
- 
+ */
 });//have a great day :)
