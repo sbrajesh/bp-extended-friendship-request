@@ -368,9 +368,10 @@ function bp_ext_friend_request_delete_message( $user_id, $friendship_id ){
     
     $key = bp_ext_friend_request_get_message_key();
     
-    $messages = bp_get_user_meta( $user_id, $key, true );
-    
-    unset( $messages[$friendship_id] );
+    $messages =  bp_get_user_meta( $user_id, $key, true );
+
+	if( !empty( $messages ) )
+		unset( $messages[$friendship_id] );
     
     if( !empty( $messages ) )
         $messages = array_filter( $messages );//filter out empty array
