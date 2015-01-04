@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: BuddyPress Extended Friendship Request 
- * Version: 1.0.3
+ * Version: 1.0.5
  * Plugin URI: http://buddydev.com/plugins/bp-extended-friendship-request/
  * Author: Brajesh Singh
  * Contributor: Anu Sharma
@@ -370,7 +370,7 @@ function bp_ext_friend_request_delete_message( $user_id, $friendship_id ){
     
     $messages =  bp_get_user_meta( $user_id, $key, true );
 
-	if( !empty( $messages ) )
+	if( !empty( $messages ) && is_array( $messages ) )
 		unset( $messages[$friendship_id] );
     
     if( !empty( $messages ) )
