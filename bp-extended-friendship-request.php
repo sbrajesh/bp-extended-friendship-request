@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: BuddyPress Extended Friendship Request 
- * Version: 1.0.5
+ * Version: 1.0.6
  * Plugin URI: http://buddydev.com/plugins/bp-extended-friendship-request/
  * Author: Brajesh Singh
  * Contributor: Anu Sharma
@@ -17,8 +17,11 @@ class BPExtFriendRequestHelper{
     private function __construct(){
         
          add_action ( 'bp_loaded', array( $this, 'load_textdomain' ), 2 );
-         
-        if( is_admin() || is_network_admin() )
+         add_filter( 'bp_get_add_friend_button', array( $this, 'filter_button' ) );
+        
+         add_action( 'bp_friend_requests_item', array( $this, 'show_message' ) );
+        
+		 if( is_admin() || is_network_admin() )
             return;//we don't want anything in backend
         //load css
         add_action( 'wp_print_styles', array( $this, 'load_css' ) );
@@ -29,9 +32,7 @@ class BPExtFriendRequestHelper{
         add_action( 'wp_footer',  array( $this, 'load_template' ) );
        
         
-        add_filter( 'bp_get_add_friend_button', array( $this, 'filter_button' ) );
-        
-        add_action( 'bp_friend_requests_item', array( $this, 'show_message' ) );
+      
         
          //load text domain
        

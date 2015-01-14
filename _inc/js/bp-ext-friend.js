@@ -6,14 +6,14 @@
  * 
  */
 
-jQuery(document).ready(function(){
+jQuery(document).ready(function() {
     
-    var jq=jQuery;
+    var jq = jQuery;
    
     var popup = null;
         
     //this is a fallback template which we never expect to use
-    var template= '<div class="bpdev-popover top"><span class="bpdev-popover-close">x</span><div class="arrow"></div><div class="bpdev-popover-inner"><h3 class="bpdev-popover-title"></h3><div class="bpdev-popover-content"><textarea name="request_friend_message" cols="27" rows="5" class="request_friend_message"></textarea><p><a class="button request-friend-ext-button" type="submit" herf="#">Send Request</a></p></div></div></div>';
+    var template = '<div class="bpdev-popover top"><span class="bpdev-popover-close">x</span><div class="arrow"></div><div class="bpdev-popover-inner"><h3 class="bpdev-popover-title"></h3><div class="bpdev-popover-content"><textarea name="request_friend_message" cols="27" rows="5" class="request_friend_message"></textarea><p><a class="button request-friend-ext-button" type="submit" herf="#">Send Request</a></p></div></div></div>';
     //
     //
     //initialize    
@@ -26,11 +26,12 @@ jQuery(document).ready(function(){
         
     }else{
         
-         jq('body').append(template);
+        jq('body').append(template);
          
-         popup=jq('.bpdev-popover');
+        popup = jq('.bpdev-popover');
          
     }
+	
     popup.hide();//by default, let us keep it hidden
 
 
@@ -52,7 +53,7 @@ jQuery(document).ready(function(){
     //repositions the popup box
     function set_position(left, top){
         
-        popup.animate({left:left, top:top},300,'easeOutQuad');
+        popup.animate({left:left, top:top},300,'swing');
         
     }
     //just resets the state of the popup to the initial state
@@ -102,12 +103,12 @@ jQuery(document).ready(function(){
           //save the element 
     }
        
-       //close on clicking the close btn
-       jq(document).on('click','.bpdev-popover-close', function(){
-           popup.hide(300,'easeOutQuad');
-           popup.css({top:0});
-         
-       });
+	//close on clicking the close btn
+	jq(document).on('click','.bpdev-popover-close', function(){
+		popup.hide(300,'swing');
+		popup.css({top:0});
+
+	});
        
        
        /* Add / Remove friendship buttons */
@@ -191,33 +192,32 @@ jQuery(document).ready(function(){
 
 
         jq.post( ajaxurl, {
-            action: 'ext_friend_add_friend',
-                        'friendship_request_message':popup.find('textarea').val(),
-            'cookie': encodeURIComponent(document.cookie),
-            'fid': fid,
-            '_wpnonce': nonce
+            action:							'ext_friend_add_friend',
+            'friendship_request_message':	popup.find('textarea').val(),
+            'cookie':						encodeURIComponent(document.cookie),
+            'fid':							fid,
+            '_wpnonce':						nonce
             },
    
-        function( response ){
+			function( response ){
        
-            link.removeClass('loading');
+				link.removeClass('loading');
 
-            if( response.message != 'undefined' ){
-                set_content( response.message );
+				if( response.message != 'undefined' ){
+					
+					set_content( response.message );
 
-                if(response.button!=undefined){
+					if(response.button!=undefined){
                     
-                    jq('#'+btn).html(response.button);
-                    realign_with_element('#'+btn);//realign the popup
+						jq('#'+btn).html(response.button);
+						realign_with_element('#'+btn);//realign the popup
                     
-                }
-            }
+					}
+				}
 
-
-
-        },'json');
+			}, 'json' );
         
-   return false;
+	return false;
    
   });
        
