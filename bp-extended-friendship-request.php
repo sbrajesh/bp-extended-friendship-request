@@ -75,8 +75,10 @@ class BPExtFriendRequestHelper{
      */
     public function filter_button( $btn ){
         
-        $wrapper_class = $btn['wrapper_class'];
-        $wrapper_class = str_replace( 'friendship-button', 'friendship-button-ext', $wrapper_class );
+        $wrapper_class = isset( $btn['wrapper_class'] ) ? $btn['wrapper_class'] : '';
+		
+		if( $wrapper_class )
+			$wrapper_class = str_replace( 'friendship-button', 'friendship-button-ext', $wrapper_class );
         
         $btn['wrapper_class'] = $wrapper_class;
         

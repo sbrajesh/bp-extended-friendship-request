@@ -2,8 +2,8 @@
 Contributors: sbrajesh, anusharma, buddydev
 Tags: buddypress, social, friends, friendship
 Requires at least: BuddyPress 1.6
-Tested up to: BuddyPress 2.1.1
-Stable tag: 1.0.5
+Tested up to: BuddyPress 2.2 beta
+Stable tag: 1.0.6
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,10 @@ No, It needs you to have BuddyPress Installed and activated
 
 == Changelog ==
 
+= 1.0.6 =
+ * Fixed to show popup even on reloading via ajax
+ * Remove the easeOutQuad easing with swing to avoid js error
+ 
 = 1.0.5 =
  * Fixed Fatal error: Cannot unset string offsets in bp-extended-friendship-request.php
  * Removes javascript debug info in the console
