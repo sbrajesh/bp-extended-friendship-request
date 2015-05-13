@@ -1,9 +1,9 @@
 === BuddyPress Extended Friendship Request ===
-Contributors: sbrajesh, anusharma, buddydev
+Contributors: buddydev,sbrajesh, anusharma
 Tags: buddypress, social, friends, friendship
 Requires at least: BuddyPress 1.6
-Tested up to: BuddyPress 2.2 beta
-Stable tag: 1.0.6
+Tested up to: BuddyPress 2.2.3.1
+Stable tag: 1.0.7
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,10 @@ No, It needs you to have BuddyPress Installed and activated
 
 == Changelog ==
 
+= 1.0.7 =
+ * Fixed notice when wrapper-class is not set on buttons
+ * A small bit of code cleanup again
+ 
 = 1.0.6 =
  * Fixed to show popup even on reloading via ajax
  * Remove the easeOutQuad easing with swing to avoid js error
