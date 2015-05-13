@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BP Extended Friendship Request\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-11 02:34+0530\n"
-"PO-Revision-Date: 2014-08-11 02:36+0530\n"
-"Last-Translator: Brajesh Singh <brajesh@gmail.com>\n"
+"POT-Creation-Date: 2015-05-13 18:27+0530\n"
+"PO-Revision-Date: 2015-05-13 18:27+0530\n"
+"Last-Translator: Brajesh Singh\n"
 "Language-Team: BuddyDev\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -12,47 +12,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-SearchPath-0: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request\n"
+"X-Poedit-SearchPath-0: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request\n"
 
-#: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:158
+#: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:161
 msgid "Request Friendship"
 msgstr ""
 
-#: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:162
+#: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:165
 msgid "Send Request"
 msgstr ""
 
-#: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:243
+#: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:247
 msgid "<p>There was a problem, please try later!</p>"
 msgstr ""
 
-#: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:258
+#: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:262
 msgid "<p>Friendship could not be requested.</p>"
 msgstr ""
 
-#: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:262
+#: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:266
 msgid "<p>Request sent Successfully!</p>"
 msgstr ""
 
-#: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:263
+#: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:267
 msgid "Cancel Friendship Request"
 msgstr ""
 
-#: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:269
-#: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:299
+#: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:273
+#: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:303
 msgid "Request Pending"
 msgstr ""
 
-#: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:286
+#: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:290
 msgid "Friendship could not be canceled."
 msgstr ""
 
-#: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:288
-#: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:294
+#: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:292
+#: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:298
 msgid "Add Friend"
 msgstr ""
 
-#: /var/www/bp/2.0/dev/wp/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:296
+#: /var/www/bp/2.2/dev/ms/wp-content/plugins/bp-extended-friendship-request/bp-extended-friendship-request.php:300
 msgid "Friendship request could not be cancelled."
 msgstr ""
 
