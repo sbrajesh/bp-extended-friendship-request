@@ -2,9 +2,10 @@
 
 /**
  * Plugin Name: BuddyPress Extended Friendship Request
- * Version: 1.0.7
- * Plugin URI: http://buddydev.com/plugins/bp-extended-friendship-request/
+ * Version: 1.0.8
+ * Plugin URI: https://buddydev.com/plugins/bp-extended-friendship-request/
  * Author: Brajesh Singh
+ * Author URI: https://buddydev.com
  * Contributor: Anu Sharma
  * License: GPL
  * Description: Allows users to send a personalized message with the friendship request
