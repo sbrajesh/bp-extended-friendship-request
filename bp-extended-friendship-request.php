@@ -147,7 +147,7 @@ class BPExtFriendRequestHelper {
 			return;
 		}
 
-		wp_enqueue_script( 'bp-extended-add-friend', $this->url . '_inc/js/bp-ext-friend.js', array( 'jquery' ) );
+		wp_enqueue_script( 'bp-extended-friendship-request', $this->url . 'assets/js/bp-extended-friendship-request.js', array( 'jquery' ) );
 
 	}
 
@@ -158,9 +158,9 @@ class BPExtFriendRequestHelper {
 			return;
 		}
 
-		wp_register_style( 'add-friend-css', $this->url . '_inc/css/bp-ext-friend.css' );
+		wp_register_style( 'bp-extended-friendship-request', $this->url . 'assets/css/bp-extended-friendship-request.css' );
 
-		wp_enqueue_style( 'add-friend-css' );
+		wp_enqueue_style( 'bp-extended-friendship-request' );
 	}
 
 	/**
