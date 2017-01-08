@@ -16,7 +16,7 @@ class BPExtFriendRequestHelper {
     
     private function __construct() {
         
-		add_action ( 'bp_loaded', array( $this, 'load_textdomain' ), 2 );
+		add_action ( 'bp_loaded', array( $this, 'load_text_domain' ), 2 );
 		add_filter( 'bp_get_add_friend_button', array( $this, 'filter_button' ) );
 
 		add_action( 'bp_friend_requests_item', array( $this, 'show_message' ) );
@@ -44,25 +44,11 @@ class BPExtFriendRequestHelper {
         return self::$instance;
     }
     /**
-     * Load plugin textdomain for translation
+     * Load plugin text domain for translation
      */
-    public function load_textdomain() {
-        
-        $locale = apply_filters( 'bp-extended-friendship-request_get_locale', get_locale() );
-              
-        // if load .mo file
-        if ( ! empty( $locale ) ) {
-            
-            $mofile_default = sprintf( '%slanguages/%s.mo', plugin_dir_path( __FILE__ ), $locale );
+    public function load_text_domain() {
 
-            $mofile = apply_filters( 'bp-ext_fr_load_textdomain_mofile', $mofile_default );
-
-            if ( is_readable( $mofile ) ) {
-                        // make sure file exists, and load it
-                load_textdomain( 'bp-ext-friends-request', $mofile );
-            }
-        }
-       
+        load_plugin_textdomain( 'bp-extended-friendship-request', false, dirname( plugin_basename( __FILE__ ) ) .'/languages' );
     }
     /**
      * We are changing the wrapper class from friendship-button to friendship-button-ext to avoild the theme's js to attach event
