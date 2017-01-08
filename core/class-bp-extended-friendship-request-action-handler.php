@@ -91,7 +91,7 @@ class BPExtFriendShipActions {
 			}
 
 		} else {
-			$messages['message'] = __( 'Request Pending', 'bp-ext-friends-request' );
+			$messages['message'] = __( 'Request Pending', 'bp-extended-friendship-request' );
 		}
 
 		echo json_encode( $messages );

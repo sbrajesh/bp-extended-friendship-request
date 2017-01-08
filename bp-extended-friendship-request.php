@@ -61,6 +61,10 @@ class BPExtFriendRequestHelper {
 		add_action( 'wp_footer', array( $this, 'load_template' ) );
 	}
 
+	/**
+	 * Load core files
+	 *
+	 */
 	public function load() {
 
 		$path = $this->path;
@@ -73,7 +77,6 @@ class BPExtFriendRequestHelper {
 		foreach ( $files as $file ) {
 			require_once $path . $file;
 		}
-
 	}
 
 	/**
@@ -84,7 +87,7 @@ class BPExtFriendRequestHelper {
 	}
 
 	/**
-	 * We are changing the wrapper class from friendship-button to friendship-button-ext to avoild the theme's js to attach event
+	 * We are changing the wrapper class from friendship-button to friendship-button-ext to avoid the theme's js to attach event
 	 *
 	 * @param array $btn array of of button fields
 	 *
@@ -148,7 +151,6 @@ class BPExtFriendRequestHelper {
 		}
 
 		wp_enqueue_script( 'bp-extended-friendship-request', $this->url . 'assets/js/bp-extended-friendship-request.js', array( 'jquery' ) );
-
 	}
 
 	//load css
@@ -176,26 +178,24 @@ class BPExtFriendRequestHelper {
 		if ( ! is_user_logged_in() ) {
 			return;
 		}
-
 		?>
 		<div class="bpdev-popover top">
 			<span class="bpdev-popover-close">x</span>
 			<div class="arrow"></div>
 			<div class="bpdev-popover-inner">
-				<h3 class="bpdev-popover-title"><?php _e( 'Request Friendship', 'bp-ext-friends-request' ); ?></h3>
+				<h3 class="bpdev-popover-title"><?php _e( 'Request Friendship', 'bp-extended-friendship-request' ); ?></h3>
 				<div class="bpdev-popover-content">
 					<textarea rows="5" cols="27" name="request_friend_message"
 					          class="request_friend_message"></textarea>
 					<p>
 						<a type="submit" class="button request-friend-ext-button"
-						   href="#"><?php _e( 'Send Request', 'bp-ext-friends-request' ); ?>
+						   href="#"><?php _e( 'Send Request', 'bp-extended-friendship-request' ); ?>
 						</a>
 					</p>
 				</div>
 			</div>
 		</div><!--end of popover -->
 		<?php
-
 	}
 }
 
