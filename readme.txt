@@ -32,6 +32,9 @@ This section describes how to install the plugin and get it working.
 = Does This plugin works without BuddyPress =
 No, It needs you to have BuddyPress Installed and activated
 
+= Where to get support? =
+Please use [BuddyDev forums](https://buddydev.com/support/forums/ ) to allow us serve you better.
+
 == Screenshots ==
 
 1. This shows sending a friendship request screenshot-1.png
@@ -72,4 +75,4 @@ No, It needs you to have BuddyPress Installed and activated
 * Initial release for BuddyPress 1.6+
 
 == Other Notes ==
-I appreciate your thoughts and suggestions. Please leave a comment on [BuddyDev](http://buddydev.com/buddypress/introducing-buddypress-extended-friendship-request-plugin/)
+We appreciate your thoughts and suggestions. Please leave a comment on [BuddyDev](https://buddydev.com/buddypress/introducing-buddypress-extended-friendship-request-plugin/)
