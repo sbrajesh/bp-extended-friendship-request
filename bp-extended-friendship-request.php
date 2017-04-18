@@ -179,6 +179,10 @@ class BPExtFriendRequestHelper {
 		if ( ! is_user_logged_in() ) {
 			return;
 		}
+		/**
+		 * @todo let site admins define a template in dashboard
+		 */
+		$default_template = apply_filters( 'bp_ext_friendship_default_message', '' );
 		?>
 		<div class="bpdev-popover top">
 			<span class="bpdev-popover-close">x</span>
@@ -187,9 +191,9 @@ class BPExtFriendRequestHelper {
 				<h3 class="bpdev-popover-title"><?php _e( 'Request Friendship', 'bp-extended-friendship-request' ); ?></h3>
 				<div class="bpdev-popover-content">
 					<textarea rows="5" cols="27" name="request_friend_message"
-					          class="request_friend_message"></textarea>
-					<p>
-						<a type="submit" class="button request-friend-ext-button"
+					          class="request_friend_message"><?php echo $default_template; ?></textarea>
+					<p class="request-friend-ext-button-wrap">
+						<a  class="btn button request-friend-ext-button"
 						   href="#"><?php _e( 'Send Request', 'bp-extended-friendship-request' ); ?>
 						</a>
 					</p>
