@@ -82,8 +82,9 @@ class BPExtFriendShipActions {
 		}
 
 		if ( 'not_friends' == BP_Friends_Friendship::check_is_friend( bp_loggedin_user_id(), $_POST['fid'] ) ) {
+			$friend_id = absint( $_POST['fid'] );
 			//let us add the user
-			if ( ! friends_add_friend( bp_loggedin_user_id(), $_POST['fid'] ) ) {
+			if ( ! friends_add_friend( bp_loggedin_user_id(), $friend_id ) ) {
 				$messages['message'] = __( '<p>Friendship could not be requested.</p>', 'bp-extended-friendship-request' );
 			} else {
 				$messages['message'] = __( '<p>Request sent Successfully!</p>', 'bp-extended-friendship-request' );
