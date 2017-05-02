@@ -3,7 +3,7 @@ Contributors: buddydev,sbrajesh, anusharma
 Tags: buddypress, social, friends, friendship
 Requires at least: 4.3.0
 Tested up to: 4.7.3
-Stable tag: 1.0.9
+Stable tag: 1.1.0
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,8 @@ Please use [BuddyDev forums](https://buddydev.com/support/forums/ ) to allow us 
 
 == Changelog ==
 
+= 1.1.0 =
+ * send email notification fix
 
 = 1.0.9 =
  * add filter 'bp_ext_friendship_default_message' to allow adding default message.

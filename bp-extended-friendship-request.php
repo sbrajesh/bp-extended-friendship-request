@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: BuddyPress Extended Friendship Request
- * Version: 1.0.9
+ * Version: 1.1.0
  * Plugin URI: https://buddydev.com/plugins/bp-extended-friendship-request/
  * Author: BuddyDev
  * Author URI: https://buddydev.com
