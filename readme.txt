@@ -43,7 +43,7 @@ Please use [BuddyDev forums](https://buddydev.com/support/forums/ ) to allow us 
 == Changelog ==
 
 = 1.1.0 =
- * send email notification fix
+ * Fix issue with friendship request email notification.
 
 = 1.0.9 =
  * add filter 'bp_ext_friendship_default_message' to allow adding default message.
