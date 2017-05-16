@@ -2,8 +2,8 @@
 Contributors: buddydev,sbrajesh, anusharma
 Tags: buddypress, social, friends, friendship
 Requires at least: 4.3.0
-Tested up to: 4.7.3
-Stable tag: 1.1.0
+Tested up to: 4.7.4
+Stable tag: 1.1.1
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,10 @@ Please use [BuddyDev forums](https://buddydev.com/support/forums/ ) to allow us 
 2. This shows successful friendship request screenshot-2.png
 
 == Changelog ==
+
+= 1.1.1 =
+ * Allow using custom js event "bp-ext-friendship-popover:close" to close any active popover.
+    You can trigger it like jQuery(document).trigger("bp-ext-friendship-popover:close" );
 
 = 1.1.0 =
  * Fix issue with friendship request email notification.
