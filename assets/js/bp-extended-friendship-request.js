@@ -222,6 +222,11 @@ jQuery(document).ready(function () {
 
     });
 
+    jq( document ).on( "bp-ext-friendship-popover:close", function() {
+       //close any active popover
+        popup.hide(300, 'swing');
+        popup.css({top: 0});
+    });
     //bind the event to send request button
 
     /*
