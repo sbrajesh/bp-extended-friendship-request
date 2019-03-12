@@ -1,171 +1,66 @@
-/* 
- * I am in hurry and I could not find a popup box to suit my need
- * Twitter bootstrap popover looked great but it attaches to individual element, so I could not use it
- * Instead, I used their look and feel, so the css part is taken from them
- * Someday, I plan to write the below code in a jquery plugin, hoping that someday will come soon :)
- * 
- */
+;( function ( $ ) {
 
-jQuery(document).ready(function () {
+    var friend_id = 0, link = '', $button_friend = null, $popover = null;
 
-    var jq = jQuery;
-
-    var popup = null;
-
-    //this is a fallback template which we never expect to use
-    var template = '<div class="bpdev-popover top"><span class="bpdev-popover-close">x</span><div class="arrow"></div><div class="bpdev-popover-inner"><h3 class="bpdev-popover-title"></h3><div class="bpdev-popover-content"><textarea name="request_friend_message" cols="27" rows="5" class="request_friend_message"></textarea><p><a class="button request-friend-ext-button" type="submit" herf="#">Send Request</a></p></div></div></div>';
-    //
-    //
-    //initialize    
-    //let us check if the popup exists
-    if (jq('.bpdev-popover').get(0)) {
-
-        popup = jq('.bpdev-popover');
-
-        template = popup.find('.bpdev-popover-content').html();
-
-    } else {
-
-        jq('body').append(template);
-
-        popup = jq('.bpdev-popover');
-
-    }
-
-    popup.hide();//by default, let us keep it hidden
-
-
-    // Some Utility Functions //
-    // 
-    //sets the title of the popup
-    function set_title(title) {
-
-        popup.find('.bpdev-popover-title').text(title);
-
-    }
-
-    //sets the content of the modal
-    function set_content(content) {
-
-        popup.find('.bpdev-popover-content').html(content);
-
-    }
-
-    //repositions the popup box
-    function set_position(left, top) {
-
-        popup.animate({left: left, top: top}, 300, 'swing');
-
-    }
-
-    //just resets the state of the popup to the initial state
-    function init_popup() {
-        //reset the popup data
-        set_content(template);
-    }
-
-    /**
-     * realigns popup box with element
-     */
-    function realign_with_element(e) {
-        var left = 0, top = 0;
-
-        var offset = jq(e).offset();
-        //offset left of the button-half the width of the popu box+half the width of the button
-
-        left = offset.left - ( jq(popup).width() / 2 ) + jq(e).width() / 2 + 10;//+'px';
-
-        top = offset.top - ( jq(popup).height() + 20 ) + 'px';
-
-        var right = 0;
-        right = left + jq(popup).width();
-
-        var win_width = jq(document).width();
-
-
-        if (win_width <= right) {
-            //we need to adjust our left coordinate
-            //how much?
-            left = left - ( right - win_width + 20 );
-
-            //make sure to add a class to popup to account for the resizing
-            popup.addClass('bpdev-popover-aligned-right')
-        }
-
-        if (left < 0)
-            left = 0;
-
-        left = left + 'px';
-
-        popup.css('left', left);
-
-        popup.show();
-        //animate the popup box and make visible
-        set_position(left, top);
-        //save the element
-    }
-
-    //close on clicking the close btn
-    jq(document).on('click', '.bpdev-popover-close', function () {
-        popup.hide(300, 'swing');
-        popup.css({top: 0});
-
+    // Disable click on webui popver to hide theme toggle menus(Ib button groups are togglable, this stops issue).
+    $(document).on('click', '.webui-popover-bp-extended-friendship-popup', function (event) {
+        return false;
     });
 
-
     /* Add / Remove friendship buttons */
-    jq(document).on('click', '.friendship-button-ext a', function () {
+    $( document ).on( 'click', '.friendship-button-ext a', function () {
+        var $btn = $( this );
+        // reset.
+        $button_friend = null;
+        link = $btn.attr( 'href' );
 
-        init_popup();//reset any data we had earlier
+        $btn.webuiPopover('destroy');
 
-        popup.hide();//hide the popup
+        var fid = $btn.attr( 'id' );
+        fid = fid.split( '-' );
+        friend_id = fid[1];
 
-        var fid = jq(this).attr('id');
-        fid = fid.split('-');
-        fid = fid[1];
+        var action = $btn.attr( 'rel' );
+        // form template clone.
+        var $template = $('#bp-extended-friendship-form-template .bp-extended-friendship-form-container').clone();
 
-        var thelink = jq(this);
-        var action = thelink.attr('rel');
-        //if this is add friend action
-        //we will setup the popup box and show it
-        if (action == 'add') {
-            //setup the modal box
-
-            popup.find('a.button').attr('href', jq(this).attr('href'));//save the link
-            realign_with_element(this);//realign popup
-            popup.data('btn', jq(this).parent().attr('id'));//save the id of the parent elemtn
-            popup.data('fid', fid);   //save button id
-            return false;//prevent propagation
+        // if this is add friend action
+        // we will setup the popup box and show it.
+        if (action === 'add') {
+            $btn.webuiPopover({'style': 'bp-extended-friendship-popup', closeable:true,  title: 'Send Request', content: $template.html(), animation: 'pop'});
+            $btn.webuiPopover('show');
+            $button_friend = $btn;
+            $popover = getPopover( $btn);
+            return false;
         }
 
-        //if we are here, It is most probably a cancel friend request or withdraw friend request
+        // if we are here, It is most probably a cancel friend request or withdraw friend request.
+        $btn.parent().addClass( 'loading' );
 
-        jq(this).parent().addClass('loading');
+        // this handles the cancel friendship request.
+        var nonce = $btn.attr( 'href' );
 
-        //this handles the cancel friendship request
-        var nonce = jq(this).attr('href');
-
-        nonce = nonce.split('?_wpnonce=');
-        nonce = nonce[1].split('&');
+        nonce = nonce.split( '?_wpnonce=' );
+        nonce = nonce[1].split( '&' );
         nonce = nonce[0];
 
-        jq.post(ajaxurl, {
+        $.post(ajaxurl, {
                 action: 'ext_friend_remove_friend',
                 'cookie': encodeURIComponent(document.cookie),
-                'fid': fid,
+                'fid': friend_id,
                 '_wpnonce': nonce
             },
             function (response) {
 
-                var parentdiv = thelink.parent();
+                var parentdiv = $btn.parent();
 
-                if (action == 'remove') {
-                    jq(parentdiv).fadeOut(200,
+                if (action === 'remove') {
+                    $( parentdiv ).fadeOut(200,
                         function () {
-                            parentdiv.removeClass('remove_friend');
-                            parentdiv.removeClass('loading');
-                            parentdiv.addClass('add');
-                            parentdiv.fadeIn(200).html(response);
+                            parentdiv.removeClass( 'remove_friend' );
+                            parentdiv.removeClass( 'loading' );
+                            parentdiv.addClass( 'add' );
+                            parentdiv.fadeIn( 200 ).html( response );
                         }
                     );
                 }
@@ -173,65 +68,45 @@ jQuery(document).ready(function () {
         return false;
     });
 
+    // bind the action to popup request button.
+    // this is where we send the actual request for friendship.
+    $( document ).on( 'click', '.bpdev-ext-friendship-popover-content a.button', function () {
+        var $btn = $( this );
 
-    //bind the action to popup request button
-    //this is where we send the actual request for friendship
-    jq(document).on('click', '.bpdev-popover a.button', function () {
+        $btn.addClass( 'loading' );
 
-        jq(this).addClass('loading');
-
-        var link = jq(this);
-
-        var btn = jq(popup).data('btn');
-        var fid = jq(popup).data('fid');
-
-        var nonce = jq(this).attr('href');
-
-        nonce = nonce.split('?_wpnonce=');
-        nonce = nonce[1].split('&');
+        var nonce = link.split( '?_wpnonce=' );
+        nonce = nonce[1].split( '&' );
         nonce = nonce[0];
 
-
-        jq.post(ajaxurl, {
+        $.post(ajaxurl, {
                 action: 'ext_friend_add_friend',
-                'friendship_request_message': popup.find('textarea').val(),
+                'friendship_request_message': $btn.parents('.bpdev-ext-friendship-popover-content').find('textarea').val(),
                 'cookie': encodeURIComponent(document.cookie),
-                'fid': fid,
+                'fid': friend_id,
                 '_wpnonce': nonce
             },
 
             function (response) {
-
-                link.removeClass('loading');
-
-                if (response.message != 'undefined') {
-
-                    set_content(response.message);
-
-                    if (response.button != undefined) {
-
-                        jq('#' + btn).html(response.button);
-                        realign_with_element('#' + btn);//realign the popup
-
+                $btn.removeClass( 'loading' );
+                if (response.message !== undefined) {
+                    if( $popover ) {
+                        $popover.setContent(response.message);
+                        $popover.displayContent();
+                    }
+                    if ( response.button !== undefined ) {
+                     //   $btn.html( response.button );
                     }
                 }
 
-            }, 'json');
+            }, 'json' );
 
         return false;
-
     });
 
-    jq( document ).on( "bp-ext-friendship-popover:close", function() {
-       //close any active popover
-        popup.hide(300, 'swing');
-        popup.css({top: 0});
-    });
-    //bind the event to send request button
+    function getPopover($el) {
+        var pluginName = 'webuiPopover';
+        return $($el).data('plugin_' + pluginName);
+    }
 
-    /*
-     jq(window).on('resize', function(){
-     console.log('resized');
-     })
-     */
-});//have a great day :)
+})(jQuery);

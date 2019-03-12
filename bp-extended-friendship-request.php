@@ -151,7 +151,12 @@ class BPExtFriendRequestHelper {
 			return;
 		}
 
-		wp_enqueue_script( 'bp-extended-friendship-request', $this->url . 'assets/js/bp-extended-friendship-request.js', array( 'jquery' ) );
+		$version = '1.2.18';
+
+		wp_register_style( 'webui-popover', $this->url  . 'assets/vendors/webui/jquery.webui-popover.css', false, $version );
+		wp_register_script( 'webui-popover', $this->url  . 'assets/vendors/webui/jquery.webui-popover.js', array( 'jquery'), $version );
+		wp_enqueue_script( 'bp-extended-friendship-request', $this->url . 'assets/js/bp-extended-friendship-request.js', array( 'jquery', 'webui-popover' ) );
+		wp_enqueue_style( 'webui-popover' );
 	}
 
 	//load css
@@ -168,39 +173,13 @@ class BPExtFriendRequestHelper {
 
 	/**
 	 * Load the template for the modal box
-	 * I know, we can handle it in js, but we may have some localization issue(not really, I just don't want to do it that way), so let us use it
-	 * Our popup is modeled after twitter bootstrap's popover
-	 * We are not using the js of twitter because it could not suit our requirement
-	 * But I liked the look, so used the css/html for the popup from them
-	 *
 	 */
 	public function load_template() {
 
 		if ( ! is_user_logged_in() ) {
 			return;
 		}
-		/**
-		 * @todo let site admins define a template in dashboard
-		 */
-		$default_template = apply_filters( 'bp_ext_friendship_default_message', '' );
-		?>
-		<div class="bpdev-popover top">
-			<span class="bpdev-popover-close">x</span>
-			<div class="arrow"></div>
-			<div class="bpdev-popover-inner">
-				<h3 class="bpdev-popover-title"><?php _e( 'Request Friendship', 'bp-extended-friendship-request' ); ?></h3>
-				<div class="bpdev-popover-content">
-					<textarea rows="5" cols="27" name="request_friend_message"
-					          class="request_friend_message"><?php echo $default_template; ?></textarea>
-					<p class="request-friend-ext-button-wrap">
-						<a  class="btn button request-friend-ext-button"
-						   href="#"><?php _e( 'Send Request', 'bp-extended-friendship-request' ); ?>
-						</a>
-					</p>
-				</div>
-			</div>
-		</div><!--end of popover -->
-		<?php
+		include_once $this->path . 'assets/bp-extended-friendship-form-template.php';
 	}
 }
 

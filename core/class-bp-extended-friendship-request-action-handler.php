@@ -73,11 +73,12 @@ class BPExtFriendShipActions {
 		$messages = array();
 
 		//validate nonce
+		$messages = array( 'error'=> true, 'message' => __( '<p>There was a problem, please try later!</p>', 'bp-extended-friendship-request' ) );
 
 		if ( ! check_ajax_referer( 'friends_add_friend' ) ) {
 
-			$messages = array( 'message' => __( '<p>There was a problem, please try later!</p>', 'bp-extended-friendship-request' ) );
-			echo $messages;
+			$messages = array('error'=> true, 'message' => __( '<p>There was a problem, please try later!</p>', 'bp-extended-friendship-request' ) );
+			echo json_encode( $messages );
 			exit( 0 );
 		}
 
