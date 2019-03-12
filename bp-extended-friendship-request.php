@@ -9,16 +9,38 @@
  * Contributor: Anu Sharma, Brajesh Singh
  * License: GPL
  * Description: Allows users to send a personalized message with the friendship request
- *
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit( 0 );
 }
+
+/**
+ * Main class.
+ *
+ * Class name is not good but can't do much as we have cods on forum using it and changing will break(can alias in future).
+ */
 class BPExtFriendRequestHelper {
 
+	/**
+	 * Singleton.
+	 *
+	 * @var BPExtFriendRequestHelper
+	 */
 	private static $instance;
 
+	/**
+	 * Plugin Path.
+	 *
+	 * @var string
+	 */
 	private $path;
+
+	/**
+	 * Plugin url.
+	 *
+	 * @var string
+	 */
 	private $url;
 
 	/**
@@ -28,13 +50,16 @@ class BPExtFriendRequestHelper {
 	 */
 	public static function get_instance() {
 
-		if ( ! isset ( self::$instance ) ) {
+		if ( ! isset( self::$instance ) ) {
 			self::$instance = new self();
 		}
 
 		return self::$instance;
 	}
 
+	/**
+	 * Constructor.
+	 */
 	private function __construct() {
 
 		$this->path = plugin_dir_path( __FILE__ );
@@ -43,6 +68,9 @@ class BPExtFriendRequestHelper {
 		$this->setup();
 	}
 
+	/**
+	 * Setup.
+	 */
 	private function setup() {
 
 		add_action( 'bp_loaded', array( $this, 'load' ) );
@@ -53,18 +81,17 @@ class BPExtFriendRequestHelper {
 
 		add_action( 'bp_friend_requests_item', array( $this, 'show_message' ) );
 
-		//load css
+		// load css.
 		add_action( 'bp_enqueue_scripts', array( $this, 'load_css' ) );
-		//load js
+		// load js.
 		add_action( 'bp_enqueue_scripts', array( $this, 'load_js' ) );
 
-		//load popup template
+		// load popup template.
 		add_action( 'wp_footer', array( $this, 'load_template' ) );
 	}
 
 	/**
 	 * Load core files
-	 *
 	 */
 	public function load() {
 
@@ -90,11 +117,15 @@ class BPExtFriendRequestHelper {
 	/**
 	 * We are changing the wrapper class from friendship-button to friendship-button-ext to avoid the theme's js to attach event
 	 *
-	 * @param array $btn array of of button fields
+	 * @param array $btn array of of button fields.
 	 *
 	 * @return array $button
 	 */
 	public function filter_button( $btn ) {
+		// why bother.
+		if ( empty( $btn ) || ! is_array( $btn ) ) {
+			return $btn;
+		}
 
 		$wrapper_class = isset( $btn['wrapper_class'] ) ? $btn['wrapper_class'] : '';
 
@@ -116,7 +147,7 @@ class BPExtFriendRequestHelper {
 		$user_id       = get_current_user_id();
 		$message       = bp_ext_friend_request_get_message( $user_id, $friendship_id );
 
-		//and we need to filter the output for malicious content
+		// and we need to filter the output for malicious content.
 		global $allowedtags;
 
 		$message_allowed_tags                  = $allowedtags;
@@ -146,28 +177,35 @@ class BPExtFriendRequestHelper {
 	 * Load required Js
 	 */
 	public function load_js() {
-		//do not load js if user is not logged in
+		// do not load js if user is not logged in.
 		if ( ! is_user_logged_in() ) {
 			return;
 		}
 
 		$version = '1.2.18';
 
-		wp_register_style( 'webui-popover', $this->url  . 'assets/vendors/webui/jquery.webui-popover.css', false, $version );
-		wp_register_script( 'webui-popover', $this->url  . 'assets/vendors/webui/jquery.webui-popover.js', array( 'jquery'), $version );
-		wp_enqueue_script( 'bp-extended-friendship-request', $this->url . 'assets/js/bp-extended-friendship-request.js', array( 'jquery', 'webui-popover' ) );
-		wp_enqueue_style( 'webui-popover' );
+		wp_register_script( 'webui-popover', $this->url . 'assets/vendors/webui/jquery.webui-popover.js', array( 'jquery' ), $version );
+		wp_enqueue_script( 'bp-extended-friendship-request', $this->url . 'assets/js/bp-extended-friendship-request.js', array(
+			'jquery',
+			'webui-popover',
+		) );
+
 	}
 
-	//load css
+	/**
+	 * Load css.
+	 */
 	public function load_css() {
-		//do not load css when user is not logged in
+		// do not load css when user is not logged in.
 		if ( ! is_user_logged_in() ) {
 			return;
 		}
+		$version = '1.2.18';
+
+		wp_register_style( 'webui-popover', $this->url . 'assets/vendors/webui/jquery.webui-popover.css', false, $version );
 
 		wp_register_style( 'bp-extended-friendship-request', $this->url . 'assets/css/bp-extended-friendship-request.css' );
-
+		wp_enqueue_style( 'webui-popover' );
 		wp_enqueue_style( 'bp-extended-friendship-request' );
 	}
 
@@ -183,6 +221,6 @@ class BPExtFriendRequestHelper {
 	}
 }
 
-//instantiate the helper
+// instantiate the helper.
 BPExtFriendRequestHelper::get_instance();
 

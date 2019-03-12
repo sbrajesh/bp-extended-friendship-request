@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Get the message associated with this friendship request
  *
- * @param int $user_id
- * @param int $friendship_id
+ * @param int $user_id user id.
+ * @param int $friendship_id friendship id.
  *
  * @return string
  */
@@ -28,9 +28,9 @@ function bp_ext_friend_request_get_message( $user_id, $friendship_id ) {
  * Update the message associated with this friendship request
  * We are actually saving the message for the requested user
  *
- * @param int $user_id
- * @param int $friendship_id
- * @param string $message
+ * @param int    $user_id user id.
+ * @param int    $friendship_id friendship id.
+ * @param string $message message.
  */
 function bp_ext_friend_request_update_message( $user_id, $friendship_id, $message ) {
 
@@ -42,7 +42,7 @@ function bp_ext_friend_request_update_message( $user_id, $friendship_id, $messag
 		$messages = array();
 	}
 
-	$messages[ $friendship_id ] = $message;
+	$messages[ $friendship_id ] = sanitize_textarea_field( $message );
 
 	bp_update_user_meta( $user_id, $key, $messages );
 }
@@ -50,8 +50,8 @@ function bp_ext_friend_request_update_message( $user_id, $friendship_id, $messag
 /**
  * Delete the message for a particular friendship id
  *
- * @param int $user_id
- * @param int $friendship_id
+ * @param int $user_id user id.
+ * @param int $friendship_id friendship id.
  */
 function bp_ext_friend_request_delete_message( $user_id, $friendship_id ) {
 
@@ -64,7 +64,7 @@ function bp_ext_friend_request_delete_message( $user_id, $friendship_id ) {
 	}
 
 	if ( ! empty( $messages ) ) {
-		$messages = array_filter( $messages );//filter out empty array
+		$messages = array_filter( $messages );
 	}
 
 	bp_update_user_meta( $user_id, $key, $messages );
