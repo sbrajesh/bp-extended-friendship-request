@@ -27,7 +27,7 @@
         // if this is add friend action
         // we will setup the popup box and show it.
         if (action === 'add') {
-            $btn.webuiPopover({'style': 'bp-extended-friendship-popup', closeable:true,  title: 'Send Request', content: $template.html(), animation: 'pop'});
+            $btn.webuiPopover({title: BPExtendedFriendshipRequest.title, content: $template.html(), style: 'bp-extended-friendship-popup', closeable:true,  animation: 'pop'});
             $btn.webuiPopover('show');
             $button_friend = $btn;
             $popover = getPopover( $btn);

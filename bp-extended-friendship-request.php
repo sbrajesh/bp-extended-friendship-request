@@ -190,6 +190,12 @@ class BPExtFriendRequestHelper {
 			'webui-popover',
 		) );
 
+		wp_localize_script(
+			'bp-extended-friendship-request',
+			'BPExtendedFriendshipRequest',
+			array( 'title' => __( 'Send Request', 'bp-extended-friendship-request' ) )
+		);
+
 	}
 
 	/**
