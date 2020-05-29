@@ -75,6 +75,18 @@ class BPExtFriendShipActions {
 	 * Handle add remove friends event
 	 */
 	public function add_friend() {
+		//echo  did_action( 'admin_init');
+		//exit(0);
+		//if ( function_exists( 'bp_nouveau_ajax_addremove_friend' ) ) {
+
+		if ( function_exists( 'bp_nouveau' ) ) {
+			if ( ! function_exists( 'bp_nouveau_ajax_addremove_friend' ) ) {
+				require bp_nouveau()->friends->dir . 'ajax.php';
+			}
+
+			$_POST['action'] = 'friends_add_friend';
+			bp_nouveau_ajax_addremove_friend();
+		}
 
 		// handle the request and add friend.
 		if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) ) {
@@ -93,6 +105,7 @@ class BPExtFriendShipActions {
 			echo json_encode( $messages );
 			exit( 0 );
 		}
+
 
 		if ( 'not_friends' == BP_Friends_Friendship::check_is_friend( bp_loggedin_user_id(), $_POST['fid'] ) ) {
 			$friend_id = absint( $_POST['fid'] );

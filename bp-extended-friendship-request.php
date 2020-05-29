@@ -79,7 +79,8 @@ class BPExtFriendRequestHelper {
 
 		add_filter( 'bp_get_add_friend_button', array( $this, 'filter_button' ) );
 
-		add_action( 'bp_friend_requests_item', array( $this, 'show_message' ) );
+		add_action( 'bp_friend_requests_item', array( $this, 'show_message_legacy' ) );
+		add_action( 'bp_directory_members_item', array( $this, 'show_message_nouveau' ) );
 
 		// load css.
 		add_action( 'bp_enqueue_scripts', array( $this, 'load_css' ) );
@@ -139,9 +140,32 @@ class BPExtFriendRequestHelper {
 	}
 
 	/**
+	 * Show for legacy.
+	 */
+	public function show_message_legacy() {
+		if ( function_exists( 'bp_nouveau' ) ) {
+			return;
+		}
+		$this->show_message();
+	}
+
+	/**
+	 * Show for Nouveau.
+	 */
+	public function show_message_nouveau() {
+		if ( ! function_exists( 'bp_nouveau' ) ) {
+			return;
+		}
+		$this->show_message();
+	}
+
+	/**
 	 * Show message on requests page
 	 */
 	public function show_message() {
+		if ( ! bp_is_user_friend_requests() ) {
+			return;
+		}
 
 		$friendship_id = bp_get_friend_friendship_id();
 		$user_id       = get_current_user_id();
@@ -170,7 +194,7 @@ class BPExtFriendRequestHelper {
 		$message_allowed_tags['blockquote']    = array();
 
 		$message_allowed_tags = apply_filters( 'bp_ext_friends_message_allowed_tags', $message_allowed_tags );
-		echo wp_kses( $message, $message_allowed_tags );
+		echo "<div class='bp-ext-friendship-message' >" . wp_kses( $message, $message_allowed_tags ) . '</div>';
 	}
 
 	/**
@@ -184,8 +208,14 @@ class BPExtFriendRequestHelper {
 
 		$version = '1.2.18';
 
+		if ( function_exists( 'bp_nouveau' ) ) {
+			$url = $this->url . 'assets/js/bp-extended-friendship-request-nouveau.js';
+		} else {
+			$url = $this->url . 'assets/js/bp-extended-friendship-request.js';
+		}
+
 		wp_register_script( 'webui-popover', $this->url . 'assets/vendors/webui/jquery.webui-popover.js', array( 'jquery' ), $version );
-		wp_enqueue_script( 'bp-extended-friendship-request', $this->url . 'assets/js/bp-extended-friendship-request.js', array(
+		wp_enqueue_script( 'bp-extended-friendship-request', $url, array(
 			'jquery',
 			'webui-popover',
 		) );
