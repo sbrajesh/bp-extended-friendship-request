@@ -142,7 +142,8 @@ class BPExtFriendRequestHelper {
 	 * Show for legacy.
 	 */
 	public function show_message_legacy() {
-		if ( function_exists( 'bp_nouveau' ) ) {
+		// Is BuddyBoss?
+		if ( function_exists( 'bp_nouveau' ) && defined( 'BP_PLATFORM_VERSION' ) ) {
 			return;
 		}
 		$this->show_message();
@@ -152,9 +153,11 @@ class BPExtFriendRequestHelper {
 	 * Show for Nouveau.
 	 */
 	public function show_message_nouveau() {
-		if ( ! function_exists( 'bp_nouveau' ) ) {
+		// not BuddyBoss?
+		if ( ! function_exists( 'bp_nouveau' ) || ! defined( 'BP_PLATFORM_VERSION')) {
 			return;
 		}
+
 		$this->show_message();
 	}
 

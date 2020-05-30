@@ -23,7 +23,7 @@
 
             // if we are here, It is our button.
             $buttonCurrent = null;
-            link = target.attr('href');
+            link = target.data('bp-nonce') ? target.data('bp-nonce') : target.attr('href');
 
             target.webuiPopover('destroy');
 
