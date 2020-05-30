@@ -8,17 +8,16 @@
         var friendID = 0, link = '', $buttonCurrent = null, $popover = null;
 
         // detach.
-        $('#buddypress [data-bp-list]').unbind('click', bp.Nouveau.buttonAction);
+        $('#buddypress [data-bp-list], #buddypress #item-header').unbind('click', bp.Nouveau.buttonAction);
 
-        $('#buddypress [data-bp-list]').on('click', '[data-bp-btn-action]', function (event) {
+        $('#buddypress [data-bp-list],  #buddypress #item-header').on('click', '[data-bp-btn-action]', function (event) {
             var target = $(event.currentTarget), action = target.data('bp-btn-action'),
                 fid;
             // any action except the add friend should work as expected.
             // Proxy.
             if (action !== 'not_friends') {
                 event.data = bp.Nouveau;
-                bp.Nouveau.buttonAction.call(bp.Nouveau, event);
-                return false;
+                return bp.Nouveau.buttonAction.call(bp.Nouveau, event);
             }
 
             // if we are here, It is our button.
@@ -34,6 +33,7 @@
             shoPoupFor(target);
             return false;
         });
+        
 
         // Disable click on webui popver to hide theme toggle menus(Ib button groups are togglable, this stops issue).
         $(document).on('click', '.webui-popover-bp-extended-friendship-popup', function (event) {
