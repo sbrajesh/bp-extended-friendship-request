@@ -1,9 +1,9 @@
 === BuddyPress Extended Friendship Request ===
 Contributors: buddydev,sbrajesh, anusharma
 Tags: buddypress, social, friends, friendship
-Requires at least: 4.3.0
-Tested up to: 5.1
-Stable tag: 1.2.0
+Requires at least: 5.0
+Tested up to: 5.5
+Stable tag: 1.2.1
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,6 +62,9 @@ We will love to work with you. Please let us know if you need any of our [servic
 2. This shows successful friendship request screenshot-2.png
 
 == Changelog ==
+
+= 1.2.1 =
+ * Added compatibility with BP Nouveau & BuddyBoss platform.
 
 = 1.2.0 =
  * Used webui popover. Fixes various issues related to placement of the popup.
