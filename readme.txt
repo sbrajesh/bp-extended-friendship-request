@@ -1,9 +1,9 @@
 === BuddyPress Extended Friendship Request ===
-Contributors: buddydev,sbrajesh, anusharma
+Contributors: buddydev,sbrajesh,anusharma,pressprogrammer
 Tags: buddypress, social, friends, friendship
 Requires at least: 5.0
-Tested up to: 5.5
-Stable tag: 1.2.1
+Tested up to: 6.8.2
+Stable tag: 1.2.2
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,11 +44,11 @@ This section describes how to install the plugin and get it working.
 
 == Frequently Asked Questions ==
 
-= Does This plugin works without BuddyPress =
-No, It needs you to have BuddyPress Installed and activated
+= Does This plugin works without BuddyPress/BuddyBoss =
+No, It needs you to have either BuddyPress or BuddyBoss platform Installed and activated
 
 = What is the supported BuddyPress Version? =
-2.9+, Tested with 4.2.
+8.0+, Tested with 14.3,4.
 
 = Where do I get support? =
 Please use [BuddyDev support](https://buddydev.com/support/forums/) forums.
@@ -62,6 +62,9 @@ We will love to work with you. Please let us know if you need any of our [servic
 2. This shows successful friendship request screenshot-2.png
 
 == Changelog ==
+
+= 1.2.2 =
+ * Fixed compatibility with BuddyBoss theme. Works quite nicely with BuddyBoss platform now.
 
 = 1.2.1 =
  * Added compatibility with BP Nouveau & BuddyBoss platform.
