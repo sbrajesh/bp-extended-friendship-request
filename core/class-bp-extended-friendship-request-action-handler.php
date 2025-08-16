@@ -75,16 +75,25 @@ class BPExtFriendShipActions {
 	 * Handle add remove friends event
 	 */
 	public function add_friend() {
-		//echo  did_action( 'admin_init');
-		//exit(0);
-		//if ( function_exists( 'bp_nouveau_ajax_addremove_friend' ) ) {
 
 		if ( function_exists( 'bp_nouveau' ) ) {
 			if ( ! function_exists( 'bp_nouveau_ajax_addremove_friend' ) ) {
 				require bp_nouveau()->friends->dir . 'ajax.php';
 			}
 
+			$bp           = buddypress();
+			$is_buddyboss = isset( $bp->buddyboss ) && $bp->buddyboss;
+
 			$_POST['action'] = 'friends_add_friend';
+			// buddyboss specific button generation override..
+			if ( $is_buddyboss ) {
+				$is_profile = bp_is_user();
+
+				$_POST['current_page']   = $is_profile ? 'single' : 'directory';
+				$_POST['button_clicked'] = $is_profile ? 'primary' : 'secondary';
+				$_POST['component']      = 'friends';
+			}
+
 			bp_nouveau_ajax_addremove_friend();
 		}
 
@@ -106,7 +115,6 @@ class BPExtFriendShipActions {
 			exit( 0 );
 		}
 
-
 		if ( 'not_friends' == BP_Friends_Friendship::check_is_friend( bp_loggedin_user_id(), $_POST['fid'] ) ) {
 			$friend_id = absint( $_POST['fid'] );
 			// let us add the user.
@@ -114,7 +122,7 @@ class BPExtFriendShipActions {
 				$messages['message'] = __( '<p>Friendship could not be requested.</p>', 'bp-extended-friendship-request' );
 			} else {
 				$messages['message'] = __( '<p>Request sent Successfully!</p>', 'bp-extended-friendship-request' );
-				$messages['button']  = '<a id="friend-' . $_POST['fid'] . '" class="remove" rel="remove" title="' . __( 'Cancel Friendship Request', 'bp-extended-friendship-request' ) . '" href="' . wp_nonce_url( bp_loggedin_user_domain() . bp_get_friends_slug() . '/requests/cancel/' . (int) $_POST['fid'] . '/', 'friends_withdraw_friendship' ) . '" class="requested">' . __( 'Cancel Friendship Request', 'bp-extended-friendship-request' ) . '</a>';
+				$messages['button'] = '<a id="friend-' . $_POST['fid'] . '" class="remove" rel="remove" title="' . __( 'Cancel Friendship Request', 'bp-extended-friendship-request' ) . '" href="' . wp_nonce_url( bp_loggedin_user_domain() . bp_get_friends_slug() . '/requests/cancel/' . (int) $_POST['fid'] . '/', 'friends_withdraw_friendship' ) . '" class="requested">' . __( 'Cancel Friendship Request', 'bp-extended-friendship-request' ) . '</a>';
 			}
 		} else {
 			$messages['message'] = __( 'Request Pending', 'bp-extended-friendship-request' );
@@ -127,7 +135,7 @@ class BPExtFriendShipActions {
 	// since theme won't handle it, just a copy to make the theme handle it.
 
 	/**
-	 * Handle remove friend.
+	 * Handles remove friend.
 	 */
 	public function remove_friend() {
 		// Bail if not a POST action.
@@ -161,7 +169,7 @@ class BPExtFriendShipActions {
 	}
 
 	/**
-	 * Save message with request.
+	 * Saves message with request.
 	 *
 	 * @param int $friendship_id friendship id.
 	 * @param int $initiator_user_id user id.
