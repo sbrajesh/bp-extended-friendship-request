@@ -1,10 +1,9 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit( 0 );
-}
+// Do not allow direct access over web.
+defined( 'ABSPATH' ) || exit;
 
 /**
- * Get the message associated with this friendship request
+ * Returns the message associated with this friendship request
  *
  * @param int $user_id user id.
  * @param int $friendship_id friendship id.
@@ -25,7 +24,7 @@ function bp_ext_friend_request_get_message( $user_id, $friendship_id ) {
 }
 
 /**
- * Update the message associated with this friendship request
+ * Updates the message associated with this friendship request
  * We are actually saving the message for the requested user
  *
  * @param int    $user_id user id.
@@ -48,7 +47,7 @@ function bp_ext_friend_request_update_message( $user_id, $friendship_id, $messag
 }
 
 /**
- * Delete the message for a particular friendship id
+ * Deletes the message for a particular friendship id
  *
  * @param int $user_id user id.
  * @param int $friendship_id friendship id.

@@ -10,9 +10,8 @@
  * Description: Allows users to send a personalized message with the friendship request
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit( 0 );
-}
+// Do not allow direct access over web.
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Main class.
@@ -91,7 +90,7 @@ class BPExtFriendRequestHelper {
 	}
 
 	/**
-	 * Load core files
+	 * Loads core files
 	 */
 	public function load() {
 
@@ -108,7 +107,7 @@ class BPExtFriendRequestHelper {
 	}
 
 	/**
-	 * Load plugin text domain for translation
+	 * Loads plugin text domain for translation
 	 */
 	public function load_text_domain() {
 		load_plugin_textdomain( 'bp-extended-friendship-request', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
@@ -117,7 +116,7 @@ class BPExtFriendRequestHelper {
 	/**
 	 * We are changing the wrapper class from friendship-button to friendship-button-ext to avoid the theme's js to attach event
 	 *
-	 * @param array $btn array of of button fields.
+	 * @param array $btn array of button fields.
 	 *
 	 * @return array $button
 	 */
@@ -139,7 +138,7 @@ class BPExtFriendRequestHelper {
 	}
 
 	/**
-	 * Show for legacy.
+	 * Shows for legacy.
 	 */
 	public function show_message_legacy() {
 		// Is BuddyBoss?
@@ -150,7 +149,7 @@ class BPExtFriendRequestHelper {
 	}
 
 	/**
-	 * Show for Nouveau.
+	 * Shows for Nouveau.
 	 */
 	public function show_message_nouveau() {
 		// not BuddyBoss?
@@ -162,7 +161,7 @@ class BPExtFriendRequestHelper {
 	}
 
 	/**
-	 * Show message on requests page
+	 * Shows message on requests page
 	 */
 	public function show_message() {
 		if ( ! bp_is_user_friend_requests() ) {
@@ -200,7 +199,7 @@ class BPExtFriendRequestHelper {
 	}
 
 	/**
-	 * Load required Js
+	 * Loads required Js
 	 */
 	public function load_js() {
 		// do not load js if user is not logged in.
@@ -231,7 +230,7 @@ class BPExtFriendRequestHelper {
 	}
 
 	/**
-	 * Load css.
+	 * Loads css.
 	 */
 	public function load_css() {
 		// do not load css when user is not logged in.
@@ -248,7 +247,7 @@ class BPExtFriendRequestHelper {
 	}
 
 	/**
-	 * Load the template for the modal box
+	 * Loads the template for the modal box
 	 */
 	public function load_template() {
 
