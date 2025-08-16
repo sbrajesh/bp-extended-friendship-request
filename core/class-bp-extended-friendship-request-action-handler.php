@@ -37,7 +37,7 @@ class BPExtFriendShipActions {
 	}
 
 	/**
-	 * Get the singleton instance.
+	 * Returns the singleton instance.
 	 *
 	 * @return BPExtFriendShipActions
 	 */
@@ -51,7 +51,7 @@ class BPExtFriendShipActions {
 	}
 
 	/**
-	 * Delete associated message
+	 * Deletes associated message
 	 *
 	 * @param int $friendship_id friendship id.
 	 * @param int $initiator_user_id initiator user id.
@@ -62,7 +62,7 @@ class BPExtFriendShipActions {
 	}
 
 	/**
-	 * Delete message on request withdraw
+	 * Deletes message on request withdraw
 	 *
 	 * @param int                   $friendship_id friendship id.
 	 * @param BP_Friends_Friendship $friendship Friendship object.
@@ -72,7 +72,7 @@ class BPExtFriendShipActions {
 	}
 
 	/**
-	 * Handle add remove friends event
+	 * Handles add remove friends event
 	 */
 	public function add_friend() {
 
