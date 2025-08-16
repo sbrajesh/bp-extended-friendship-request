@@ -30,7 +30,7 @@
             fid = fid.split('-');
             friendID = fid[1];
 
-            shoPoupFor(target);
+            showPoupFor(target);
             return false;
         });
         
@@ -45,7 +45,7 @@
          *
          * @param $button
          */
-        function shoPoupFor($button) {
+        function showPoupFor($button) {
             // form template clone.
             var $template = $('#bp-extended-friendship-form-template .bp-extended-friendship-form-container').clone();
 
